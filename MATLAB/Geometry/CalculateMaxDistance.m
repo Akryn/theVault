@@ -31,9 +31,8 @@ end
 
 SquaredDistances = (r2 - r1 ).^2 + (c2 - c1).^2; % Squared Distances - actually calculated them each twice, A to B and B to A.
 MaxSquaredDistance = max(SquaredDistances(:));
-if nargout == 1
-    MaxDistance = sqrt(MaxSquaredDistance);
-else
+MaxDistance = sqrt(MaxSquaredDistance);
+if nargout > 1
     MaxIndices = find(SquaredDistances == MaxSquaredDistance);
     MaxIndices = MaxIndices(1 : (length(MaxIndices)/2) ); % Removing duplicates.
     CoordinatesOfEndPoints = [r1(MaxIndices) , c1(MaxIndices) , r2(MaxIndices) , c2(MaxIndices)];

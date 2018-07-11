@@ -5,7 +5,7 @@ function [G_xstar , Var_fstar] = GPWithMarginalisedBetandSigma(X,Xstar,Y,l,Sigma
 % Xstar is input values for prediction - input as column vector
 % l is the correlation length coefficient WARNING very touchy.
 % Sigman is the "Nugget", our noise on the training outputs which we have observed. 
-% thi is a function to create a design matrix. @CreateLinearDesignMatrix will work. 
+% thi is a function to create a design matrix.
 
 %Note: Throughout the comment walkthrough we use (A^-1)' = (A')^-1 for square matrices.
 %Proof: (A')(A^-1)' = (A^-1 * A)'    because A' * B' = (B * A)' 

@@ -38,7 +38,7 @@ VarBetaHat = kron( SigmaSq ,   (L' \ (L\ eye(size(X , 2)))) ); % kron takes each
 % VarCov(Beta^i , Beta^j) where Beta^k is the vector of coefficients for output k.
 % i.e. the top left most corner (p x p) block is the VarCov matrix of the Beta associated with the
 % first output. 
-% If we fit straight lines to two outputs a and b, this would be:
+% If we fit straight lines to two outputs a and b, the full VarCov would be:
 % VarCov(B^a , B^a) VarCov(B^a , B^b)
 % VarCov(B^b , B^a) VarCov(B^b , B^b)
 % and looking closer at the top right entry, we would see:

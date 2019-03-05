@@ -8,14 +8,35 @@ y = f(x);
 
 figure;
 plot(x,y , 'k');
-xlabel('x')
-ylabel('y')
-title('1st Iteration')
+xlabel('x' , 'Interpreter' , 'LaTeX')
+ylabel('y' , 'Interpreter' , 'LaTeX')
+title('Prior' , 'Interpreter' , 'LaTeX')
 hold on
 
 xTest = 5; % Unknown when history matching. This is what we want to find out.
 yTest = f(xTest);
 plot(xTest, yTest, 'kx')
+
+%% Prior GP
+% Prior N(0, CF_SquaredExponential)
+
+l = 1;
+sigmaSq_f = 10;
+
+mFuncPrior = 0.* x; % Prior mean function.
+
+Kxx = sigmaSq_f .* CF_SquaredExponential(x, x, l);
+varFuncPrior = diag(Kxx); % Prior covariance function.
+
+plot(x, mFuncPrior , 'b--')
+patch([x ; flipud(x)], [mFuncPrior + (2*sqrt(varFuncPrior)) ; ...
+    flipud( mFuncPrior - (2*sqrt(varFuncPrior)))] ,...
+    [160,160,160]./255 , 'FaceAlpha' , 0.3 , 'LineStyle' , 'none')
+
+%% Prior Non-Implausible Set
+
+plot([x(1), x(end)] , [yTest, yTest] , 'r--')
+plot(x, yTest , 'r.')
 
 %% Sample
 
@@ -27,14 +48,19 @@ xSamp1 = round(xSamp1,2);
 % ySamp1 = y(indSamp1);
 ySamp1 = f(xSamp1);
 
+figure;
+plot(x,y , 'k');
+xlabel('x' , 'Interpreter' , 'LaTeX')
+ylabel('y' , 'Interpreter' , 'LaTeX')
+title('1st Iteration' , 'Interpreter' , 'LaTeX')
+hold on
+
+plot(xTest, yTest, 'kx')
 plot(xSamp1, ySamp1 , 'bx')
 
 %% GP
 % From Rasmussen Algorithm 2.1
 
-% Prior N(0, CF_SquaredExponential)
-l = 1;
-sigmaSq_f = 10;
 sigmaSq_n = 1e-6; % Typically noise, but in this case just for numerical stability.
 KxSamp1xSamp1 = sigmaSq_f .* CF_SquaredExponential(xSamp1, xSamp1, l) + eye(length(xSamp1)) .* sigmaSq_n;
 L = chol(KxSamp1xSamp1 , 'lower');
@@ -70,9 +96,9 @@ ySamp2 = f(xSamp2);
 
 figure;
 plot(x,y , 'k');
-xlabel('x')
-ylabel('y')
-title('2nd Iteration')
+xlabel('x' , 'Interpreter' , 'LaTeX')
+ylabel('y' , 'Interpreter' , 'LaTeX')
+title('2nd Iteration' , 'Interpreter' , 'LaTeX')
 hold on
 
 plot(xTest, yTest, 'kx')
@@ -112,9 +138,9 @@ ySamp3 = f(xSamp3);
 
 figure;
 plot(x,y , 'k');
-xlabel('x')
-ylabel('y')
-title('3rd Iteration')
+xlabel('x' , 'Interpreter' , 'LaTeX')
+ylabel('y' , 'Interpreter' , 'LaTeX')
+title('3rd Iteration' , 'Interpreter' , 'LaTeX')
 hold on
 
 plot(xTest, yTest, 'kx')
